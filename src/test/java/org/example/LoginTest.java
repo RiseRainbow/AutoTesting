@@ -48,7 +48,7 @@ public class LoginTest {
         //driver.findElement(By.id("passp-field-login")).sendKeys("asdasdasd");
        loginPage.inputLogin(ConfProperties.getProperty("login"));
        loginPage.LogButClick();
-       loginPage.inputPassword(ConfProperties.getProperty("password"));
+       loginPage.inputPassword(ConfProperties.getProperty("password"));//фывфыв
     }
 
     @Test
