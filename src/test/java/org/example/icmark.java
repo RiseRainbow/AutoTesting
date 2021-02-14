@@ -1,23 +1,14 @@
 package org.example;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.*;
-import org.openqa.selenium.*;
-
-import java.io.File;
 
 public class icmark {
 
@@ -55,6 +46,45 @@ public class icmark {
         driver.quit();
     }
 
+    @Test
+    public void ASmarttech(){
+        driver.get("https://yandex.ru/");
+        driver.findElement(By.xpath("//*[@id=\"text\"]")).sendKeys("расчет расстояний между городами");
+        driver.findElement(By.cssSelector(".search2__wrapper .search2__button .button")).click();
+        driver.findElement(By.partialLinkText("avtodispetcher.ru")).click();
+        befAfter.NextTab(driver);
+        Assert.assertTrue(driver.getCurrentUrl().equals("https://www.avtodispetcher.ru/distance/"));
+        driver.findElement(By.xpath("//*[@id=\"from_field_parent\"]/input")).sendKeys("Тула");
+        driver.findElement(By.xpath("//*[@id=\"to_field_parent\"]/input")).sendKeys("Санкт-Петербург");
+        driver.findElement(By.xpath("//*[@id=\"CalculatorForm\"]/div[2]/div[1]/label/input")).clear();
+        driver.findElement(By.xpath("//*[@id=\"CalculatorForm\"]/div[2]/div[1]/label/input")).sendKeys("9");
+        driver.findElement(By.xpath("//*[@id=\"CalculatorForm\"]/div[2]/div[2]/label/input")).clear();
+        driver.findElement(By.xpath("//*[@id=\"CalculatorForm\"]/div[2]/div[2]/label/input")).sendKeys("46");
+        befAfter.PauseSleep(6000);
+        driver.findElement(By.xpath("//*[@id=\"CalculatorForm\"]/div[3]/input")).click();
+        Assert.assertTrue(driver.findElement(By.id("totalDistance")).getText().equals("897"));
+        driver.quit();
+
+    }
+
+    @Test
+    public void DemoMagaz (){ // тупо наводимся на дропдаун меню и выбираем там нужный элемент
+        driver.get("http://demowebshop.tricentis.com/");
+        Actions action = new Actions(driver);
+        WebElement we = driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[2]/ul[1]/li[2]/a"));
+        action.moveToElement(we).moveToElement(driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[2]/ul[1]/li[2]/ul/li[3]/a"))).click().build().perform();
+        driver.quit();
+    }
+
+    @Test
+    public void MoveSwapMospar (){ // Свайп по слайдеру
+        driver.manage().window().maximize();
+        driver.get("https://mospar.ru/");
+        Actions action = new Actions(driver);
+        WebElement element = driver.findElement(By.xpath("//*[@id=\"site-main\"]/section[2]/div/div/div[1]/div[1]/div/div[6]"));
+        action.dragAndDropBy(element,10,0).build().perform();
+        driver.quit();
+    }
     /*@Test
     public void icmark(){
         System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver.exe");
