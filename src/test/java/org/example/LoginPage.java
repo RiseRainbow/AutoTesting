@@ -42,4 +42,5 @@ public class LoginPage {
     public  void LogButClick(){
         loginBtn.click();
     }
+
 }
